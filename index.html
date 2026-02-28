@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maaz Deen Sanjid Kabir - AI Dashboard</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-black text-white overflow-x-hidden">
+    
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="fixed inset-0 bg-black flex items-center justify-center z-50">
+        <div class="loading-container">
+            <div class="loading-text">INITIALIZING AI DASHBOARD</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Particles -->
+    <div id="particleContainer" class="particle-container"></div>
+
+    <!-- Cursor Glow -->
+    <div id="cursorGlow" class="cursor-glow"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar fixed top-0 w-full z-40 bg-black/30 backdrop-blur-md border-b border-cyan-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg animate-pulse"></div>
+                    <span class="font-orbitron font-bold text-lg bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">MAAZ</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-sm font-poppins hover:text-cyan-400 transition">Home</a>
+                    <a href="#about" class="nav-link text-sm font-poppins hover:text-cyan-400 transition">About</a>
+                    <a href="#segments" class="nav-link text-sm font-poppins hover:text-cyan-400 transition">Segments</a>
+                    <a href="#events" class="nav-link text-sm font-poppins hover:text-cyan-400 transition">Events</a>
+                    <a href="#contact" class="nav-link text-sm font-poppins hover:text-cyan-400 transition">Contact</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button id="themeToggle" class="p-2 rounded-lg bg-gray-900/50 hover:bg-gray-800 border border-cyan-500/30 transition">
+                        <span id="themeIcon">🌙</span>
+                    </button>
+                    <button class="md:hidden p-2 rounded-lg bg-gray-900/50 hover:bg-gray-800 border border-cyan-500/30">
+                        ☰
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scrollProgress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 z-50 w-full" style="width: 0%;"></div>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl -top-48 -left-48 animate-float"></div>
+            <div class="absolute w-96 h-96 bg-purple-500/10 rounded-full blur-3xl -bottom-48 -right-48 animate-float" style="animation-delay: 2s;"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4">
+            <div class="mb-8">
+                <h1 class="font-orbitron text-6xl md:text-8xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent animate-glow-text">
+                        MAAZ DEEN
+                    </span>
+                </h1>
+                <h2 class="font-orbitron text-5xl md:text-7xl font-bold mb-6">
+                    <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
+                        SANJID KABIR
+                    </span>
+                </h2>
+            </div>
+
+            <div class="mb-8 h-12 md:h-16">
+                <p class="font-poppins text-lg md:text-2xl text-cyan-300 typing-effect">
+                    <span id="typingText"></span><span class="cursor">|</span>
+                </p>
+            </div>
+
+            <p class="font-poppins text-gray-400 text-sm md:text-base mb-12 max-w-2xl mx-auto">
+                Saint Joseph Higher Secondary School | AI-Powered Portfolio Dashboard
+            </p>
+
+            <button class="relative group px-8 py-3 rounded-lg font-poppins font-semibold text-white overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg transition-transform group-hover:scale-110"></div>
+                <div class="absolute inset-0 bg-black rounded-lg transition-transform group-hover:scale-95"></div>
+                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-lg transition-opacity"></div>
+                <span class="relative z-10 flex items-center justify-center gap-2">
+                    Explore Dashboard
+                    <svg class="w-4 h-4 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                </span>
+            </button>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <div class="w-6 h-10 border-2 border-cyan-400 rounded-full flex items-center justify-center">
+                    <div class="w-1 h-2 bg-cyan-400 rounded-full animate-scroll"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="min-h-screen flex items-center justify-center py-20 px-4 relative">
+        <div class="max-w-6xl mx-auto w-full">
+            <div class="text-center mb-16">
+                <h2 class="font-orbitron text-4xl md:text-5xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">ABOUT ME</span>
+                </h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="glass-card p-8">
+                    <div class="w-full h-64 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-lg border border-cyan-500/30 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="text-6xl mb-4">🎓</div>
+                            <p class="font-poppins text-gray-400">Saint Joseph Higher Secondary School</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="font-poppins text-gray-300 text-lg leading-relaxed">
+                        I am a passionate student with a diverse skill set spanning mathematics, programming, debating, and music. My journey combines analytical thinking with creative expression, allowing me to approach problems from multiple perspectives.
+                    </p>
+                    <p class="font-poppins text-gray-300 text-lg leading-relaxed">
+                        With a focus on innovation and continuous learning, I leverage modern technologies to solve real-world challenges. My dashboard-style portfolio reflects my passion for AI, futuristic design, and cutting-edge development.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="glass-card p-4 text-center hover:border-cyan-400 transition">
+                            <div class="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">95%</div>
+                            <p class="font-poppins text-gray-400 text-sm mt-2">Mathematics</p>
+                        </div>
+                        <div class="glass-card p-4 text-center hover:border-cyan-400 transition">
+                            <div class="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">90%</div>
+                            <p class="font-poppins text-gray-400 text-sm mt-2">Programming</p>
+                        </div>
+                        <div class="glass-card p-4 text-center hover:border-cyan-400 transition">
+                            <div class="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">85%</div>
+                            <p class="font-poppins text-gray-400 text-sm mt-2">Debating</p>
+                        </div>
+                        <div class="glass-card p-4 text-center hover:border-cyan-400 transition">
+                            <div class="text-3xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">80%</div>
+                            <p class="font-poppins text-gray-400 text-sm mt-2">Music</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Segments Dashboard Section -->
+    <section id="segments" class="min-h-screen flex items-center justify-center py-20 px-4 relative">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="text-center mb-16">
+                <h2 class="font-orbitron text-4xl md:text-5xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">SKILL SEGMENTS</span>
+                </h2>
+                <p class="font-poppins text-gray-400 mt-4">Interactive Dashboard</p>
+                <div class="w-20 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Mathematician Card -->
+                <div class="segment-card glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition cursor-pointer group" data-segment="mathematician">
+                    <div class="mb-6">
+                        <div class="text-5xl mb-4 group-hover:scale-110 transition">📐</div>
+                        <h3 class="font-orbitron text-2xl font-bold text-cyan-400">MATHEMATICIAN</h3>
+                    </div>
+                    <p class="font-poppins text-gray-400 mb-6">
+                        Proficient in advanced mathematics, problem-solving, and analytical thinking with a passion for mathematical competitions.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="skill-bar">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-poppins text-sm">Algebra & Geometry</span>
+                                <span class="font-poppins text-sm font-bold text-cyan-400">95%</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-700/50 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full skill-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-poppins text-sm">Problem Solving</span>
+                                <span class="font-poppins text-sm font-bold text-cyan-400">92%</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-700/50 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full skill-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-cyan-500/20">
+                        <p class="font-poppins text-xs text-gray-500 mb-3">ACHIEVEMENTS</p>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex items-center gap-2"><span class="text-cyan-400">✓</span> Math Olympiad Finalist</li>
+                            <li class="flex items-center gap-2"><span class="text-cyan-400">✓</span> 95% Average Score</li>
+                            <li class="flex items-center gap-2"><span class="text-cyan-400">✓</span> Problem Solving Expert</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 p-3 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-center cursor-pointer hover:bg-cyan-500/20 transition">
+                        <span class="font-poppins text-sm text-cyan-400">Click to expand</span>
+                    </div>
+                </div>
+
+                <!-- Programmer Card -->
+                <div class="segment-card glass-card p-8 rounded-xl border border-purple-500/30 hover:border-purple-400 transition cursor-pointer group" data-segment="programmer">
+                    <div class="mb-6">
+                        <div class="text-5xl mb-4 group-hover:scale-110 transition">💻</div>
+                        <h3 class="font-orbitron text-2xl font-bold text-purple-400">PROGRAMMER</h3>
+                    </div>
+                    <p class="font-poppins text-gray-400 mb-6">
+                        Full-stack developer with expertise in web development, algorithms, and modern frameworks.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="skill-bar">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-poppins text-sm">Web Development</span>
+                                <span class="font-poppins text-sm font-bold text-purple-400">90%</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-700/50 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full skill-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-poppins text-sm">Algorithms</span>
+                                <span class="font-poppins text-sm font-bold text-purple-400">88%</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-700/50 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full skill-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-purple-500/20">
+                        <p class="font-poppins text-xs text-gray-500 mb-3">ACHIEVEMENTS</p>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex items-center gap-2"><span class="text-purple-400">✓</span> Coding Competition Winner</li>
+                            <li class="flex items-center gap-2"><span class="text-purple-400">✓</span> 10+ Projects Deployed</li>
+                            <li class="flex items-center gap-2"><span class="text-purple-400">✓</span> Full-Stack Developer</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 p-3 rounded-lg bg-purple-500/10 border border-purple-500/20 text-center cursor-pointer hover:bg-purple-500/20 transition">
+                        <span class="font-poppins text-sm text-purple-400">Click to expand</span>
+                    </div>
+                </div>
+
+                <!-- Debater Card -->
+                <div class="segment-card glass-card p-8 rounded-xl border border-pink-500/30 hover:border-pink-400 transition cursor-pointer group" data-segment="debater">
+                    <div class="mb-6">
+                        <div class="text-5xl mb-4 group-hover:scale-110 transition">🎤</div>
+                        <h3 class="font-orbitron text-2xl font-bold text-pink-400">DEBATER</h3>
+                    </div>
+                    <p class="font-poppins text-gray-400 mb-6">
+                        Skilled in argumentation, public speaking, and critical thinking with multiple debate championships.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="skill-bar">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-poppins text-sm">Argumentation</span>
+                                <span class="font-poppins text-sm font-bold text-pink-400">85%</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-700/50 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-pink-500 to-rose-500 rounded-full skill-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-poppins text-sm">Public Speaking</span>
+                                <span class="font-poppins text-sm font-bold text-pink-400">87%</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-700/50 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-pink-500 to-rose-500 rounded-full skill-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-pink-500/20">
+                        <p class="font-poppins text-xs text-gray-500 mb-3">ACHIEVEMENTS</p>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex items-center gap-2"><span class="text-pink-400">✓</span> Debate Championship Winner</li>
+                            <li class="flex items-center gap-2"><span class="text-pink-400">✓</span> Regional Champion 2024</li>
+                            <li class="flex items-center gap-2"><span class="text-pink-400">✓</span> Public Speaking Expert</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 p-3 rounded-lg bg-pink-500/10 border border-pink-500/20 text-center cursor-pointer hover:bg-pink-500/20 transition">
+                        <span class="font-poppins text-sm text-pink-400">Click to expand</span>
+                    </div>
+                </div>
+
+                <!-- Musician Card -->
+                <div class="segment-card glass-card p-8 rounded-xl border border-orange-500/30 hover:border-orange-400 transition cursor-pointer group" data-segment="musician">
+                    <div class="mb-6">
+                        <div class="text-5xl mb-4 group-hover:scale-110 transition">🎵</div>
+                        <h3 class="font-orbitron text-2xl font-bold text-orange-400">MUSICIAN</h3>
+                    </div>
+                    <p class="font-poppins text-gray-400 mb-6">
+                        Versatile musician with proficiency in multiple instruments and composition skills.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="skill-bar">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-poppins text-sm">Instrument Mastery</span>
+                                <span class="font-poppins text-sm font-bold text-orange-400">80%</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-700/50 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full skill-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-poppins text-sm">Music Composition</span>
+                                <span class="font-poppins text-sm font-bold text-orange-400">78%</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-700/50 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full skill-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-orange-500/20">
+                        <p class="font-poppins text-xs text-gray-500 mb-3">ACHIEVEMENTS</p>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Music Festival Performer</li>
+                            <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Multi-Instrumental</li>
+                            <li class="flex items-center gap-2"><span class="text-orange-400">✓</span> Composition Awards</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 p-3 rounded-lg bg-orange-500/10 border border-orange-500/20 text-center cursor-pointer hover:bg-orange-500/20 transition">
+                        <span class="font-poppins text-sm text-orange-400">Click to expand</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners/Marquee Section -->
+    <section class="py-20 px-4 relative overflow-hidden">
+        <div class="text-center mb-12">
+            <h2 class="font-orbitron text-3xl md:text-4xl font-bold mb-2">
+                <span class="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">PARTNERS & ORGANIZATIONS</span>
+            </h2>
+        </div>
+
+        <div class="relative overflow-hidden">
+            <div class="marquee">
+                <div class="marquee-content">
+                    <div class="marquee-item">
+                        <div class="glass-card p-6 flex items-center justify-center min-w-max">
+                            <span class="font-orbitron font-bold text-sm">🎓 SAINT JOSEPH</span>
+                        </div>
+                    </div>
+                    <div class="marquee-item">
+                        <div class="glass-card p-6 flex items-center justify-center min-w-max">
+                            <span class="font-orbitron font-bold text-sm">📊 MATH OLYMPIAD</span>
+                        </div>
+                    </div>
+                    <div class="marquee-item">
+                        <div class="glass-card p-6 flex items-center justify-center min-w-max">
+                            <span class="font-orbitron font-bold text-sm">💻 CODING CLUB</span>
+                        </div>
+                    </div>
+                    <div class="marquee-item">
+                        <div class="glass-card p-6 flex items-center justify-center min-w-max">
+                            <span class="font-orbitron font-bold text-sm">🎤 DEBATE SOCIETY</span>
+                        </div>
+                    </div>
+                    <div class="marquee-item">
+                        <div class="glass-card p-6 flex items-center justify-center min-w-max">
+                            <span class="font-orbitron font-bold text-sm">🎵 MUSIC ACADEMY</span>
+                        </div>
+                    </div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="marquee-item">
+                        <div class="glass-card p-6 flex items-center justify-center min-w-max">
+                            <span class="font-orbitron font-bold text-sm">🎓 SAINT JOSEPH</span>
+                        </div>
+                    </div>
+                    <div class="marquee-item">
+                        <div class="glass-card p-6 flex items-center justify-center min-w-max">
+                            <span class="font-orbitron font-bold text-sm">📊 MATH OLYMPIAD</span>
+                        </div>
+                    </div>
+                    <div class="marquee-item">
+                        <div class="glass-card p-6 flex items-center justify-center min-w-max">
+                            <span class="font-orbitron font-bold text-sm">💻 CODING CLUB</span>
+                        </div>
+                    </div>
+                    <div class="marquee-item">
+                        <div class="glass-card p-6 flex items-center justify-center min-w-max">
+                            <span class="font-orbitron font-bold text-sm">🎤 DEBATE SOCIETY</span>
+                        </div>
+                    </div>
+                    <div class="marquee-item">
+                        <div class="glass-card p-6 flex items-center justify-center min-w-max">
+                            <span class="font-orbitron font-bold text-sm">🎵 MUSIC ACADEMY</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="min-h-screen flex items-center justify-center py-20 px-4 relative">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="text-center mb-16">
+                <h2 class="font-orbitron text-4xl md:text-5xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">UPCOMING EVENTS</span>
+                </h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Event Card 1 -->
+                <div class="event-card glass-card p-6 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition group overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition"></div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-4xl">📐</span>
+                            <span class="px-3 py-1 bg-cyan-500/20 border border-cyan-500/50 rounded-full text-xs font-poppins text-cyan-400">MAR 2026</span>
+                        </div>
+                        <h3 class="font-orbitron text-lg font-bold mb-2 text-cyan-400">Math Competition</h3>
+                        <p class="font-poppins text-sm text-gray-400 mb-4">State-level mathematics olympiad with top participants.</p>
+                        <div class="flex items-center gap-2 text-sm text-gray-500">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            15 March 2026
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Card 2 -->
+                <div class="event-card glass-card p-6 rounded-xl border border-purple-500/30 hover:border-purple-400 transition group overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition"></div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-4xl">💻</span>
+                            <span class="px-3 py-1 bg-purple-500/20 border border-purple-500/50 rounded-full text-xs font-poppins text-purple-400">APR 2026</span>
+                        </div>
+                        <h3 class="font-orbitron text-lg font-bold mb-2 text-purple-400">Coding Contest</h3>
+                        <p class="font-poppins text-sm text-gray-400 mb-4">24-hour hackathon with innovative projects.</p>
+                        <div class="flex items-center gap-2 text-sm text-gray-500">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            22 April 2026
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Card 3 -->
+                <div class="event-card glass-card p-6 rounded-xl border border-pink-500/30 hover:border-pink-400 transition group overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-pink-500/10 to-rose-500/10 opacity-0 group-hover:opacity-100 transition"></div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-4xl">🎤</span>
+                            <span class="px-3 py-1 bg-pink-500/20 border border-pink-500/50 rounded-full text-xs font-poppins text-pink-400">MAY 2026</span>
+                        </div>
+                        <h3 class="font-orbitron text-lg font-bold mb-2 text-pink-400">Debate Championship</h3>
+                        <p class="font-poppins text-sm text-gray-400 mb-4">Inter-school debate tournament with live streaming.</p>
+                        <div class="flex items-center gap-2 text-sm text-gray-500">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            10 May 2026
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Card 4 -->
+                <div class="event-card glass-card p-6 rounded-xl border border-orange-500/30 hover:border-orange-400 transition group overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-yellow-500/10 opacity-0 group-hover:opacity-100 transition"></div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-4xl">🎵</span>
+                            <span class="px-3 py-1 bg-orange-500/20 border border-orange-500/50 rounded-full text-xs font-poppins text-orange-400">JUN 2026</span>
+                        </div>
+                        <h3 class="font-orbitron text-lg font-bold mb-2 text-orange-400">Music Festival</h3>
+                        <p class="font-poppins text-sm text-gray-400 mb-4">Annual school music festival with live performances.</p>
+                        <div class="flex items-center gap-2 text-sm text-gray-500">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            05 June 2026
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Dashboard Section -->
+    <section id="skills" class="min-h-screen flex items-center justify-center py-20 px-4 relative">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="text-center mb-16">
+                <h2 class="font-orbitron text-4xl md:text-5xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">COMPREHENSIVE SKILLS</span>
+                </h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Left Column -->
+                <div class="space-y-8">
+                    <div class="skill-item">
+                        <div class="flex justify-between mb-3">
+                            <span class="font-poppins font-semibold text-white">Mathematics & Analysis</span>
+                            <span class="font-orbitron font-bold text-cyan-400">95%</span>
+                        </div>
+                        <div class="w-full h-3 bg-gray-700/50 rounded-full overflow-hidden border border-cyan-500/20">
+                            <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full skill-bar-fill" data-width="95"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="flex justify-between mb-3">
+                            <span class="font-poppins font-semibold text-white">Web Development</span>
+                            <span class="font-orbitron font-bold text-purple-400">90%</span>
+                        </div>
+                        <div class="w-full h-3 bg-gray-700/50 rounded-full overflow-hidden border border-purple-500/20">
+                            <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full skill-bar-fill" data-width="90"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="flex justify-between mb-3">
+                            <span class="font-poppins font-semibold text-white">JavaScript & React</span>
+                            <span class="font-orbitron font-bold text-cyan-400">88%</span>
+                        </div>
+                        <div class="w-full h-3 bg-gray-700/50 rounded-full overflow-hidden border border-cyan-500/20">
+                            <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full skill-bar-fill" data-width="88"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="flex justify-between mb-3">
+                            <span class="font-poppins font-semibold text-white">Python & Data Science</span>
+                            <span class="font-orbitron font-bold text-purple-400">85%</span>
+                        </div>
+                        <div class="w-full h-3 bg-gray-700/50 rounded-full overflow-hidden border border-purple-500/20">
+                            <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full skill-bar-fill" data-width="85"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="space-y-8">
+                    <div class="skill-item">
+                        <div class="flex justify-between mb-3">
+                            <span class="font-poppins font-semibold text-white">Public Speaking</span>
+                            <span class="font-orbitron font-bold text-pink-400">87%</span>
+                        </div>
+                        <div class="w-full h-3 bg-gray-700/50 rounded-full overflow-hidden border border-pink-500/20">
+                            <div class="h-full bg-gradient-to-r from-pink-500 to-rose-500 rounded-full skill-bar-fill" data-width="87"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="flex justify-between mb-3">
+                            <span class="font-poppins font-semibold text-white">Critical Thinking</span>
+                            <span class="font-orbitron font-bold text-orange-400">89%</span>
+                        </div>
+                        <div class="w-full h-3 bg-gray-700/50 rounded-full overflow-hidden border border-orange-500/20">
+                            <div class="h-full bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full skill-bar-fill" data-width="89"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="flex justify-between mb-3">
+                            <span class="font-poppins font-semibold text-white">Music Composition</span>
+                            <span class="font-orbitron font-bold text-cyan-400">78%</span>
+                        </div>
+                        <div class="w-full h-3 bg-gray-700/50 rounded-full overflow-hidden border border-cyan-500/20">
+                            <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full skill-bar-fill" data-width="78"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="flex justify-between mb-3">
+                            <span class="font-poppins font-semibold text-white">Team Collaboration</span>
+                            <span class="font-orbitron font-bold text-purple-400">92%</span>
+                        </div>
+                        <div class="w-full h-3 bg-gray-700/50 rounded-full overflow-hidden border border-purple-500/20">
+                            <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full skill-bar-fill" data-width="92"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="min-h-screen flex items-center justify-center py-20 px-4 relative">
+        <div class="max-w-4xl mx-auto w-full">
+            <div class="text-center mb-16">
+                <h2 class="font-orbitron text-4xl md:text-5xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">GET IN TOUCH</span>
+                </h2>
+                <p class="font-poppins text-gray-400 mt-4">Connect with me for collaborations and opportunities</p>
+                <div class="w-20 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="glass-card p-8 rounded-xl border border-cyan-500/30">
+                    <h3 class="font-orbitron text-xl font-bold text-cyan-400 mb-6">SEND MESSAGE</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <input type="text" placeholder="Your Name" class="w-full px-4 py-3 bg-gray-900/50 border border-cyan-500/30 rounded-lg font-poppins text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition">
+                        </div>
+                        <div>
+                            <input type="email" placeholder="Your Email" class="w-full px-4 py-3 bg-gray-900/50 border border-cyan-500/30 rounded-lg font-poppins text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition">
+                        </div>
+                        <div>
+                            <textarea placeholder="Your Message" rows="4" class="w-full px-4 py-3 bg-gray-900/50 border border-cyan-500/30 rounded-lg font-poppins text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-500 hover:shadow-lg hover:shadow-cyan-500/50 rounded-lg font-poppins font-semibold text-white transition transform hover:scale-105">
+                            SEND MESSAGE
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="space-y-6">
+                    <div class="glass-card p-6 rounded-lg border border-cyan-500/30 hover:border-cyan-400 transition group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-white text-xl group-hover:scale-110 transition">
+                                📧
+                            </div>
+                            <div>
+                                <p class="font-poppins text-sm text-gray-500">Email</p>
+                                <p class="font-poppins font-semibold text-white">maaz.kabir@email.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-lg border border-purple-500/30 hover:border-purple-400 transition group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl group-hover:scale-110 transition">
+                                📱
+                            </div>
+                            <div>
+                                <p class="font-poppins text-sm text-gray-500">Phone</p>
+                                <p class="font-poppins font-semibold text-white">+88 01700-000-000</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-lg border border-pink-500/30 hover:border-pink-400 transition group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-pink-500 to-rose-500 flex items-center justify-center text-white text-xl group-hover:scale-110 transition">
+                                🏫
+                            </div>
+                            <div>
+                                <p class="font-poppins text-sm text-gray-500">School</p>
+                                <p class="font-poppins font-semibold text-white">Saint Joseph Higher Secondary School</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-lg border border-orange-500/30 hover:border-orange-400 transition group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-orange-500 to-yellow-500 flex items-center justify-center text-white text-xl group-hover:scale-110 transition">
+                                📍
+                            </div>
+                            <div>
+                                <p class="font-poppins text-sm text-gray-500">Location</p>
+                                <p class="font-poppins font-semibold text-white">Dhaka, Bangladesh</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 mt-8">
+                        <a href="#" class="flex-1 py-3 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/50 rounded-lg text-center font-poppins text-white hover:bg-gradient-to-r hover:from-cyan-500/40 hover:to-purple-500/40 transition">
+                            LinkedIn
+                        </a>
+                        <a href="#" class="flex-1 py-3 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/50 rounded-lg text-center font-poppins text-white hover:bg-gradient-to-r hover:from-purple-500/40 hover:to-pink-500/40 transition">
+                            GitHub
+                        </a>
+                        <a href="#" class="flex-1 py-3 bg-gradient-to-r from-pink-500/20 to-orange-500/20 border border-pink-500/50 rounded-lg text-center font-poppins text-white hover:bg-gradient-to-r hover:from-pink-500/40 hover:to-orange-500/40 transition">
+                            Twitter
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-cyan-500/20 py-12 px-4 bg-black/50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="font-orbitron font-bold text-cyan-400 mb-4">MAAZ DEEN</h3>
+                    <p class="font-poppins text-gray-400 text-sm">AI-powered personal portfolio & dashboard</p>
+                </div>
+                <div>
+                    <h3 class="font-orbitron font-bold text-purple-400 mb-4">QUICK LINKS</h3>
+                    <ul class="space-y-2 text-sm font-poppins text-gray-400">
+                        <li><a href="#home" class="hover:text-cyan-400 transition">Home</a></li>
+                        <li><a href="#segments" class="hover:text-cyan-400 transition">Segments</a></li>
+                        <li><a href="#events" class="hover:text-cyan-400 transition">Events</a></li>
+                        <li><a href="#contact" class="hover:text-cyan-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-orbitron font-bold text-pink-400 mb-4">CONNECT</h3>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-white hover:scale-110 transition">f</a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white hover:scale-110 transition">in</a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-gradient-to-r from-pink-500 to-rose-500 flex items-center justify-center text-white hover:scale-110 transition">tw</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-cyan-500/20 pt-8">
+                <p class="font-poppins text-gray-500 text-sm text-center">
+                    © 2026 Maaz Deen Sanjid Kabir. All rights reserved. | Built with cutting-edge AI technology
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full flex items-center justify-center text-white opacity-0 pointer-events-none hover:scale-110 transition z-40">
+        ↑
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
