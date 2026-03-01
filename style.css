@@ -499,4 +499,30 @@ a, button, [role="button"] {
 
 .to-purple-400 {
     --tw-gradient-to: #d8b4fe;
+
+}
+
+
+.game-btn {
+  display: inline-block;
+  padding: 15px 25px;
+  background: linear-gradient(45deg, #ff4d4d, #ffcc00);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 30px;
+  transition: 0.3s;
+  animation: pulse 1.5s infinite;
+}
+
+.game-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px gold;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 5px #ff4d4d; }
+  50% { box-shadow: 0 0 20px #ffcc00; }
+  100% { box-shadow: 0 0 5px #ff4d4d; }
 }
