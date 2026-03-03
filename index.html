@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Maaz Deen Sanjid Kabir - AI Dashboard</title>
 
+    <!-- Favicon (PNG only – rounded corners must be in the image file) -->
+    <link
+      rel="icon"
+      href="images/favicon.png"
+      type="image/png"
+      sizes="rounded rectangle"
+    />
+
+    <!-- Better tab/bookmark compatibility -->
+    <link rel="icon" href="images/favicon.png" type="image/png" sizes="32x32" />
+
+    <!-- iOS home screen – Apple applies nice rounded-square / squircle mask automatically -->
+    <link rel="apple-touch-icon" href="images/favicon.png" sizes="180x180" />
+
     <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap"
@@ -41,59 +55,89 @@
     <!-- Cursor Glow -->
     <div id="cursorGlow" class="cursor-glow"></div>
 
-    <!-- Navigation -->
+    <!-- Navigation - Enhanced Cyberpunk Style -->
     <nav
-      class="navbar fixed top-0 w-full z-40 bg-black/30 backdrop-blur-md border-b border-cyan-500/20"
+      class="fixed top-0 left-0 right-0 z-50 mx-auto mt-6 max-w-5xl px-4 sm:px-6 lg:px-8"
     >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-          <div class="flex items-center space-x-2">
-            <div
-              class="w-8 h-8 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg animate-pulse"
-            ></div>
+      <div
+        class="bg-black/30 backdrop-blur-2xl border border-cyan-400/40 rounded-3xl shadow-2xl shadow-cyan-600/20 shadow-purple-600/10 overflow-hidden relative before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-r before:from-cyan-500/10 before:via-purple-500/5 before:to-pink-500/10 before:pointer-events-none"
+      >
+        <div class="px-8 h-16 flex items-center justify-between relative z-10">
+          <!-- Logo with your image -->
+          <div class="flex items-center gap-4">
+            <img
+              src="images/s.k.png"
+              alt="S.S. Logo"
+              class="w-10 h-10 object-cover rounded-2xl shadow-lg shadow-purple-500/50 animate-pulse transition-transform duration-300 hover:scale-110"
+            />
             <span
-              class="font-orbitron font-bold text-lg bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent"
-              >S.K.</span
+              class="font-orbitron font-black text-2xl bg-gradient-to-r from-cyan-200 via-purple-200 to-pink-200 bg-clip-text text-transparent tracking-wider drop-shadow-[0_0_8px_rgba(34,211,238,0.7)]"
             >
+              S.K.
+            </span>
           </div>
 
-          <div class="hidden md:flex items-center space-x-8">
+          <!-- Desktop menu - Neon hover glow -->
+          <div class="hidden md:flex items-center gap-12">
             <a
               href="#home"
-              class="nav-link text-sm font-poppins hover:text-cyan-400 transition"
-              >Home</a
+              class="nav-link relative text-base font-medium text-cyan-100 hover:text-cyan-300 transition-all duration-300 group"
             >
+              Home
+              <span
+                class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 group-hover:w-full transition-all duration-400 shadow-[0_0_10px_rgba(34,211,238,0.6)]"
+              ></span>
+            </a>
             <a
               href="#about"
-              class="nav-link text-sm font-poppins hover:text-cyan-400 transition"
-              >About</a
+              class="nav-link relative text-base font-medium text-cyan-100 hover:text-cyan-300 transition-all duration-300 group"
             >
+              About
+              <span
+                class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 group-hover:w-full transition-all duration-400 shadow-[0_0_10px_rgba(34,211,238,0.6)]"
+              ></span>
+            </a>
             <a
               href="#segments"
-              class="nav-link text-sm font-poppins hover:text-cyan-400 transition"
-              >Segments</a
+              class="nav-link relative text-base font-medium text-cyan-100 hover:text-cyan-300 transition-all duration-300 group"
             >
+              Segments
+              <span
+                class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 group-hover:w-full transition-all duration-400 shadow-[0_0_10px_rgba(34,211,238,0.6)]"
+              ></span>
+            </a>
             <a
               href="#events"
-              class="nav-link text-sm font-poppins hover:text-cyan-400 transition"
-              >Events</a
+              class="nav-link relative text-base font-medium text-cyan-100 hover:text-cyan-300 transition-all duration-300 group"
             >
+              Events
+              <span
+                class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 group-hover:w-full transition-all duration-400 shadow-[0_0_10px_rgba(34,211,238,0.6)]"
+              ></span>
+            </a>
             <a
               href="#contact"
-              class="nav-link text-sm font-poppins hover:text-cyan-400 transition"
-              >Contact</a
+              class="nav-link relative text-base font-medium text-cyan-100 hover:text-cyan-300 transition-all duration-300 group"
             >
+              Contact
+              <span
+                class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 group-hover:w-full transition-all duration-400 shadow-[0_0_10px_rgba(34,211,238,0.6)]"
+              ></span>
+            </a>
           </div>
 
-          <div class="flex items-center space-x-4">
+          <!-- Right side controls - Neon theme toggle -->
+          <div class="flex items-center gap-5">
             <button
               id="themeToggle"
-              class="p-2 rounded-lg bg-gray-900/50 hover:bg-gray-800 border border-cyan-500/30 transition"
+              class="p-3 rounded-xl bg-gray-900/70 hover:bg-gray-800/90 border border-cyan-400/50 hover:border-cyan-300/70 text-cyan-300 hover:text-cyan-200 transition-all duration-300 shadow-[0_0_15px_rgba(34,211,238,0.4)] hover:shadow-[0_0_25px_rgba(34,211,238,0.7)]"
             >
               <span id="themeIcon">🌙</span>
             </button>
+
+            <!-- Mobile menu button -->
             <button
-              class="md:hidden p-2 rounded-lg bg-gray-900/50 hover:bg-gray-800 border border-cyan-500/30"
+              class="md:hidden p-3 rounded-xl bg-gray-900/70 hover:bg-gray-800/90 border border-cyan-400/50 text-cyan-300 hover:shadow-[0_0_20px_rgba(168,85,247,0.6)] transition-all duration-300"
             >
               ☰
             </button>
